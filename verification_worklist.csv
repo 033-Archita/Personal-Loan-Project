@@ -1,0 +1,269 @@
+lender_id,lender_name,rule_key,segment,rule_value,status,estimate_method,priority
+L01,State Bank of India,min_total_experience,all,24,ESTIMATE_PEER,no peer publishes this; industry-typical default 24: median published total-experience floor in peer class,1
+L02,Bank of Baroda,max_age_at_application,all,60,ESTIMATE_PEER,min of 1 published peer values (L01): lowest published ceiling in peer class (conservative),1
+L02,Bank of Baroda,max_income_multiple,all,20,ESTIMATE_PEER,"min of 3 published peer values (L01, L04, L05): lowest published income multiple among banks (BoM 20) - conservative",1
+L02,Bank of Baroda,min_net_monthly_income_salaried,all,22500,ESTIMATE_PEER,"median of 4 published peer values (L01, L01, L04, L05): median published salaried NMI floor in peer class",1
+L02,Bank of Baroda,min_net_monthly_income_self_employed,self-employed,22500,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L02,Bank of Baroda,min_total_experience,all,24,ESTIMATE_PEER,no peer publishes this; industry-typical default 24: median published total-experience floor in peer class,1
+L03,Union Bank of India,max_age_at_application,all,60,ESTIMATE_PEER,min of 1 published peer values (L01): lowest published ceiling in peer class (conservative),1
+L03,Union Bank of India,max_age_at_maturity,all,60,ESTIMATE_PEER,"min of 3 published peer values (L01, L02, L02): lowest published maturity cap in peer class (conservative)",1
+L03,Union Bank of India,max_foir,all,50,ESTIMATE_PEER,"min of 5 published peer values (L01, L02, L02, L05, L04): lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75",1
+L03,Union Bank of India,max_income_multiple,all,20,ESTIMATE_PEER,"min of 3 published peer values (L01, L04, L05): lowest published income multiple among banks (BoM 20) - conservative",1
+L03,Union Bank of India,min_age,salaried non-govt scheme,18,OFFICIAL_PARTIAL,,1
+L03,Union Bank of India,min_business_vintage,all,12,ESTIMATE_PEER,"median of 1 published peer values (L02): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L03,Union Bank of India,min_credit_score,all,700,OFFICIAL_PARTIAL,,1
+L03,Union Bank of India,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 5 published peer values (L01, L01, L02, L04, L04): median published current-job tenure in peer class",1
+L03,Union Bank of India,min_net_monthly_income_salaried,all,22500,ESTIMATE_PEER,"median of 4 published peer values (L01, L01, L04, L05): median published salaried NMI floor in peer class",1
+L03,Union Bank of India,min_net_monthly_income_self_employed,self-employed,22500,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L03,Union Bank of India,min_total_experience,all,24,ESTIMATE_PEER,no peer publishes this; industry-typical default 24: median published total-experience floor in peer class,1
+L03,Union Bank of India,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L04,Central Bank of India,max_age_at_application,all,60,ESTIMATE_PEER,min of 1 published peer values (L01): lowest published ceiling in peer class (conservative),1
+L04,Central Bank of India,max_age_at_maturity,all,60,ESTIMATE_PEER,"min of 3 published peer values (L01, L02, L02): lowest published maturity cap in peer class (conservative)",1
+L04,Central Bank of India,max_foir,permanent employees,50,ESTIMATE_DERIVED,net take-home >= 50% of gross (40% with employer undertaking) -> deductions <= 50% (60% with undertaking); 50 used as conservative base,1
+L04,Central Bank of India,min_age,all,21,ESTIMATE_PEER,"median of 3 published peer values (L01, L02, L03): median of published minimum ages in peer class",1
+L04,Central Bank of India,min_net_monthly_income_salaried,permanent employees,15000,ESTIMATE_DERIVED,180000 gross/yr / 12 = 15000 gross/month (published rule is gross annual),1
+L04,Central Bank of India,min_total_experience,all,24,ESTIMATE_PEER,no peer publishes this; industry-typical default 24: median published total-experience floor in peer class,1
+L05,Bank of Maharashtra,max_age_at_application,all,60,ESTIMATE_PEER,min of 1 published peer values (L01): lowest published ceiling in peer class (conservative),1
+L05,Bank of Maharashtra,max_age_at_maturity,all,60,ESTIMATE_PEER,"min of 3 published peer values (L01, L02, L02): lowest published maturity cap in peer class (conservative)",1
+L05,Bank of Maharashtra,min_age,all,21,ESTIMATE_PEER,"median of 3 published peer values (L01, L02, L03): median of published minimum ages in peer class",1
+L05,Bank of Maharashtra,min_business_vintage,all,12,ESTIMATE_PEER,"median of 1 published peer values (L02): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L05,Bank of Maharashtra,min_credit_score,all,700,ESTIMATE_PEER,median of 1 published peer values (L04): median published CIBIL floor in peer class,1
+L05,Bank of Maharashtra,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 5 published peer values (L01, L01, L02, L04, L04): median published current-job tenure in peer class",1
+L05,Bank of Maharashtra,min_net_monthly_income_salaried,all,25000,ESTIMATE_DERIVED,300000 annual / 12 = 25000,1
+L05,Bank of Maharashtra,min_net_monthly_income_self_employed,doctors/CAs/architects,25000,ESTIMATE_DERIVED,Converted from published annual/gross figure,1
+L05,Bank of Maharashtra,min_total_experience,all,24,ESTIMATE_PEER,no peer publishes this; industry-typical default 24: median published total-experience floor in peer class,1
+L06,HDFC Bank,max_age_at_maturity,salaried,60,ESTIMATE_DERIVED,published age band 21-60; maturity cap taken equal to upper age,1
+L06,HDFC Bank,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L06,HDFC Bank,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L06,HDFC Bank,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L07,ICICI Bank,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L07,ICICI Bank,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L07,ICICI Bank,min_credit_score,all,700,OFFICIAL_PARTIAL,,1
+L07,ICICI Bank,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 2 published peer values (L06, L09): median published current-job tenure in peer class",1
+L07,ICICI Bank,min_net_monthly_income_self_employed,self-employed,30000,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L07,ICICI Bank,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L08,Axis Bank,max_age_at_application,all,58,ESTIMATE_PEER,"min of 4 published peer values (L06, L07, L09, L10): lowest published ceiling in peer class (conservative)",1
+L08,Axis Bank,max_age_at_maturity,salaried,60,CONFLICT_RESOLVED,,1
+L08,Axis Bank,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L08,Axis Bank,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L08,Axis Bank,min_business_vintage,all,24,ESTIMATE_PEER,"median of 1 published peer values (L07): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L08,Axis Bank,min_credit_score,all,710,ESTIMATE_PEER,"median of 3 published peer values (L06, L07, L10): median published CIBIL floor in peer class",1
+L08,Axis Bank,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 2 published peer values (L06, L09): median published current-job tenure in peer class",1
+L08,Axis Bank,min_net_monthly_income_self_employed,self-employed,25000,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L08,Axis Bank,min_total_experience,all,24,ESTIMATE_PEER,"median of 2 published peer values (L06, L07): median published total-experience floor in peer class",1
+L08,Axis Bank,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L08,Axis Bank,self_employed_allowed,all,yes,ESTIMATE_PEER,lender page lists only salaried criteria; assumed available because every other lender in dataset serves self-employed except HDFC/Piramal/SBI-Xpress-scheme,1
+L09,Kotak Mahindra Bank,max_age_at_maturity,all,60,ESTIMATE_PEER,"min of 3 published peer values (L07, L08, L06): lowest published maturity cap in peer class (conservative)",1
+L09,Kotak Mahindra Bank,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L09,Kotak Mahindra Bank,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L09,Kotak Mahindra Bank,max_loan_amount,all (headline),10000000,OFFICIAL_PARTIAL,,1
+L09,Kotak Mahindra Bank,min_business_vintage,all,24,ESTIMATE_PEER,"median of 1 published peer values (L07): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L09,Kotak Mahindra Bank,min_current_job_tenure,salaried,12,OFFICIAL_PARTIAL,,1
+L09,Kotak Mahindra Bank,min_net_monthly_income_self_employed,self-employed,30000,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L09,Kotak Mahindra Bank,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L09,Kotak Mahindra Bank,self_employed_allowed,all,yes,ESTIMATE_PEER,lender page lists only salaried criteria; assumed available because every other lender in dataset serves self-employed except HDFC/Piramal/SBI-Xpress-scheme,1
+L10,IDFC FIRST Bank,max_age_at_application,all,60,OFFICIAL_PARTIAL,,1
+L10,IDFC FIRST Bank,max_age_at_maturity,all,60,ESTIMATE_PEER,"min of 3 published peer values (L07, L08, L06): lowest published maturity cap in peer class (conservative)",1
+L10,IDFC FIRST Bank,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L10,IDFC FIRST Bank,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L10,IDFC FIRST Bank,min_age,all,21,OFFICIAL_PARTIAL,,1
+L10,IDFC FIRST Bank,min_business_vintage,all,24,ESTIMATE_PEER,"median of 1 published peer values (L07): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L10,IDFC FIRST Bank,min_credit_score,all,710,OFFICIAL_PARTIAL,,1
+L10,IDFC FIRST Bank,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 2 published peer values (L06, L09): median published current-job tenure in peer class",1
+L10,IDFC FIRST Bank,min_net_monthly_income_salaried,salaried,25000,OFFICIAL_PARTIAL,,1
+L10,IDFC FIRST Bank,min_net_monthly_income_self_employed,self-employed,25000,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L10,IDFC FIRST Bank,min_total_experience,all,24,ESTIMATE_PEER,"median of 2 published peer values (L06, L07): median published total-experience floor in peer class",1
+L10,IDFC FIRST Bank,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L11,AU Small Finance Bank,max_age_at_application,all,58,ESTIMATE_PEER,"min of 8 published peer values (L06, L07, L09, L10, L18, L19, L20, L21): lowest published ceiling in peer class (conservative)",1
+L11,AU Small Finance Bank,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L11,AU Small Finance Bank,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L11,AU Small Finance Bank,max_loan_amount,all,1500000,OFFICIAL_PARTIAL,,1
+L11,AU Small Finance Bank,min_business_vintage,all,24,ESTIMATE_PEER,"median of 2 published peer values (L07, L20): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L11,AU Small Finance Bank,min_credit_score,all,750,OFFICIAL_PARTIAL,,1
+L11,AU Small Finance Bank,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 2 published peer values (L06, L09): median published current-job tenure in peer class",1
+L11,AU Small Finance Bank,min_net_monthly_income_salaried,all,25000,ESTIMATE_PEER,"median of 11 published peer values (L06, L07, L08, L08, L09, L09, L10, L16, L18, L19, L20): median published salaried NMI floor in peer class",1
+L11,AU Small Finance Bank,min_net_monthly_income_self_employed,self-employed,25000,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L11,AU Small Finance Bank,min_total_experience,all,24,ESTIMATE_PEER,"median of 3 published peer values (L06, L07, L19): median published total-experience floor in peer class",1
+L11,AU Small Finance Bank,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L11,AU Small Finance Bank,self_employed_allowed,all,yes,ESTIMATE_PEER,lender page lists only salaried criteria; assumed available because every other lender in dataset serves self-employed except HDFC/Piramal/SBI-Xpress-scheme,1
+L13,Equitas Small Finance Bank,max_age_at_maturity,all,60,ESTIMATE_PEER,"min of 5 published peer values (L07, L08, L16, L20, L06): lowest published maturity cap in peer class (conservative)",1
+L13,Equitas Small Finance Bank,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L13,Equitas Small Finance Bank,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L13,Equitas Small Finance Bank,min_business_vintage,all,24,ESTIMATE_PEER,"median of 2 published peer values (L07, L20): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L13,Equitas Small Finance Bank,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 2 published peer values (L06, L09): median published current-job tenure in peer class",1
+L13,Equitas Small Finance Bank,min_net_monthly_income_self_employed,self-employed,25000,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L13,Equitas Small Finance Bank,min_total_experience,all,24,ESTIMATE_PEER,"median of 3 published peer values (L06, L07, L19): median published total-experience floor in peer class",1
+L13,Equitas Small Finance Bank,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L13,Equitas Small Finance Bank,self_employed_allowed,all,yes,ESTIMATE_PEER,lender page lists only salaried criteria; assumed available because every other lender in dataset serves self-employed except HDFC/Piramal/SBI-Xpress-scheme,1
+L14,ESAF Small Finance Bank,max_age_at_application,all,58,ESTIMATE_PEER,"min of 8 published peer values (L06, L07, L09, L10, L18, L19, L20, L21): lowest published ceiling in peer class (conservative)",1
+L14,ESAF Small Finance Bank,max_age_at_maturity,all,60,ESTIMATE_PEER,"min of 5 published peer values (L07, L08, L16, L20, L06): lowest published maturity cap in peer class (conservative)",1
+L14,ESAF Small Finance Bank,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L14,ESAF Small Finance Bank,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L14,ESAF Small Finance Bank,min_age,all,21,ESTIMATE_PEER,"median of 12 published peer values (L06, L07, L07, L08, L09, L10, L16, L18, L19, L20, L20, L21): median of published minimum ages in peer class",1
+L14,ESAF Small Finance Bank,min_business_vintage,all,24,ESTIMATE_PEER,"median of 2 published peer values (L07, L20): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L14,ESAF Small Finance Bank,min_credit_score,all,700,ESTIMATE_PEER,"median of 7 published peer values (L06, L07, L10, L16, L17, L19, L20): median published CIBIL floor in peer class",1
+L14,ESAF Small Finance Bank,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 2 published peer values (L06, L09): median published current-job tenure in peer class",1
+L14,ESAF Small Finance Bank,min_net_monthly_income_salaried,all,25000,ESTIMATE_PEER,"median of 11 published peer values (L06, L07, L08, L08, L09, L09, L10, L16, L18, L19, L20): median published salaried NMI floor in peer class",1
+L14,ESAF Small Finance Bank,min_net_monthly_income_self_employed,self-employed,25000,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L14,ESAF Small Finance Bank,min_total_experience,all,24,ESTIMATE_PEER,"median of 3 published peer values (L06, L07, L19): median published total-experience floor in peer class",1
+L14,ESAF Small Finance Bank,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L14,ESAF Small Finance Bank,self_employed_allowed,all,yes,ESTIMATE_PEER,lender page lists only salaried criteria; assumed available because every other lender in dataset serves self-employed except HDFC/Piramal/SBI-Xpress-scheme,1
+L16,Bajaj Finance,max_age_at_application,all,58,ESTIMATE_PEER,"min of 8 published peer values (L06, L07, L09, L10, L18, L19, L20, L21): lowest published ceiling in peer class (conservative)",1
+L16,Bajaj Finance,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L16,Bajaj Finance,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L16,Bajaj Finance,min_business_vintage,all,24,ESTIMATE_PEER,"median of 2 published peer values (L07, L20): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L16,Bajaj Finance,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 2 published peer values (L06, L09): median published current-job tenure in peer class",1
+L16,Bajaj Finance,min_net_monthly_income_salaried,salaried (starting; city based),25001,OFFICIAL_PARTIAL,,1
+L16,Bajaj Finance,min_net_monthly_income_self_employed,self-employed,25001,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L16,Bajaj Finance,min_total_experience,all,24,ESTIMATE_PEER,"median of 3 published peer values (L06, L07, L19): median published total-experience floor in peer class",1
+L16,Bajaj Finance,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L17,Tata Capital,max_age_at_maturity,all,60,ESTIMATE_PEER,"min of 5 published peer values (L07, L08, L16, L20, L06): lowest published maturity cap in peer class (conservative)",1
+L17,Tata Capital,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L17,Tata Capital,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L17,Tata Capital,min_business_vintage,all,24,ESTIMATE_PEER,"median of 2 published peer values (L07, L20): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L17,Tata Capital,min_credit_score,salaried,725,OFFICIAL_PARTIAL,,1
+L17,Tata Capital,min_net_monthly_income_self_employed,self-employed,25000,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L17,Tata Capital,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L17,Tata Capital,self_employed_allowed,all,yes,ESTIMATE_PEER,lender page lists only salaried criteria; assumed available because every other lender in dataset serves self-employed except HDFC/Piramal/SBI-Xpress-scheme,1
+L18,Poonawalla Fincorp,max_age_at_maturity,all,60,ESTIMATE_PEER,"min of 5 published peer values (L07, L08, L16, L20, L06): lowest published maturity cap in peer class (conservative)",1
+L18,Poonawalla Fincorp,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L18,Poonawalla Fincorp,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L18,Poonawalla Fincorp,min_business_vintage,all,24,ESTIMATE_PEER,"median of 2 published peer values (L07, L20): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L18,Poonawalla Fincorp,min_credit_score,all,700,OFFICIAL_PARTIAL,,1
+L18,Poonawalla Fincorp,min_net_monthly_income_self_employed,self-employed,25000,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L18,Poonawalla Fincorp,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L18,Poonawalla Fincorp,self_employed_allowed,all,yes,ESTIMATE_PEER,lender page lists only salaried criteria; assumed available because every other lender in dataset serves self-employed except HDFC/Piramal/SBI-Xpress-scheme,1
+L19,SMFG India Credit,max_age_at_application,salaried,60,OFFICIAL_PARTIAL,,1
+L19,SMFG India Credit,max_foir,self-employed,65,OFFICIAL_PARTIAL,,1
+L19,SMFG India Credit,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L19,SMFG India Credit,max_loan_amount,all,5000000,ESTIMATE_PEER,"median of 9 published peer values (L06, L07, L08, L09, L10, L16, L17, L18, L20): median published max loan in peer class",1
+L19,SMFG India Credit,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 2 published peer values (L06, L09): median published current-job tenure in peer class",1
+L19,SMFG India Credit,min_net_monthly_income_self_employed,self-employed,25001,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L19,SMFG India Credit,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L20,L&T Finance,max_age_at_maturity,self-employed,65,OFFICIAL_PARTIAL,,1
+L20,L&T Finance,max_foir,all,50,ESTIMATE_PEER,no peer publishes this; industry-typical default 50: lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75,1
+L20,L&T Finance,max_income_multiple,all,20,ESTIMATE_PEER,no peer publishes this; industry-typical default 20: lowest published income multiple among banks (BoM 20) - conservative,1
+L20,L&T Finance,min_net_monthly_income_self_employed,self-employed,25000,ESTIMATE_PEER,no lender publishes a self-employed floor; set equal to salaried class median (ITR income/12),1
+L20,L&T Finance,min_total_experience,all,24,ESTIMATE_PEER,"median of 3 published peer values (L06, L07, L19): median published total-experience floor in peer class",1
+L20,L&T Finance,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L20,L&T Finance,self_employed_allowed,self-employed,yes,OFFICIAL_PARTIAL,,1
+L22,Punjab National Bank,max_age_at_application,all,60,ESTIMATE_PEER,min of 1 published peer values (L01): lowest published ceiling in peer class (conservative),1
+L22,Punjab National Bank,max_age_at_maturity,salaried (Swaagat),60,THIRD_PARTY_UNVERIFIED,,1
+L22,Punjab National Bank,max_age_at_maturity,self-employed,65,THIRD_PARTY_UNVERIFIED,,1
+L22,Punjab National Bank,max_foir,all,50,ESTIMATE_PEER,"min of 5 published peer values (L01, L02, L02, L05, L04): lowest published FOIR/deduction cap in peer class (conservative); PSU published 50-75",1
+L22,Punjab National Bank,min_age,all,21,ESTIMATE_PEER,"median of 3 published peer values (L01, L02, L03): median of published minimum ages in peer class",1
+L22,Punjab National Bank,min_business_vintage,all,12,ESTIMATE_PEER,"median of 1 published peer values (L02): median published business vintage (ICICI 24, L&T 24, BoB 12)",1
+L22,Punjab National Bank,min_current_job_tenure,all,12,ESTIMATE_PEER,"median of 5 published peer values (L01, L01, L02, L04, L04): median published current-job tenure in peer class",1
+L22,Punjab National Bank,min_net_monthly_income_salaried,all,22500,ESTIMATE_PEER,"median of 4 published peer values (L01, L01, L04, L05): median published salaried NMI floor in peer class",1
+L22,Punjab National Bank,min_net_monthly_income_self_employed,professionals,50000,ESTIMATE_DERIVED,Converted from published annual/gross figure,1
+L23,Canara Bank,max_age_at_application,all,60,ESTIMATE_PEER,min of 1 published peer values (L01): lowest published ceiling in peer class (conservative),1
+L23,Canara Bank,max_age_at_maturity,salaried,55,THIRD_PARTY_UNVERIFIED,,1
+L23,Canara Bank,max_foir,Budget,75,ESTIMATE_DERIVED,Converted from published annual/gross figure,1
+L23,Canara Bank,min_age,salaried,21,THIRD_PARTY_UNVERIFIED,,1
+L23,Canara Bank,min_credit_score,all,700,ESTIMATE_PEER,median of 1 published peer values (L04): median published CIBIL floor in peer class,1
+L23,Canara Bank,min_net_monthly_income_salaried,salaried,50000,THIRD_PARTY_UNVERIFIED,,1
+L23,Canara Bank,min_total_experience,all,24,ESTIMATE_PEER,no peer publishes this; industry-typical default 24: median published total-experience floor in peer class,1
+L23,Canara Bank,salary_account_required,all,no,ESTIMATE_PEER,"only SBI and Central Bank publish a salary-account requirement; others treat it as pricing, not eligibility",1
+L01,State Bank of India,rate_max,all,17.35,ESTIMATE_PEER,rate_min + class spread 7.35 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L01,State Bank of India,rate_min,salaried,10.0,OFFICIAL_PARTIAL,,2
+L03,Union Bank of India,min_loan_amount,all,100000,ESTIMATE_PEER,"median of 2 published peer values (L01, L02): median published minimum loan in peer class",2
+L03,Union Bank of India,min_tenure,all,6,ESTIMATE_PEER,median of 1 published peer values (L01): median published minimum tenure in peer class,2
+L03,Union Bank of India,processing_fee_max,all,1.5,ESTIMATE_PEER,"median of 3 published peer values (L01, L02, L05): median of published fee caps (SBI 1.5, BoB 2.0, BoM 1.0)",2
+L03,Union Bank of India,rate_max,all,17.42,ESTIMATE_PEER,rate_min + class spread 7.35 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L03,Union Bank of India,rate_min,all,10.075,ESTIMATE_PEER,"median of 2 published peer values (L01, L02): median published start rate in peer class",2
+L04,Central Bank of India,min_loan_amount,all,100000,ESTIMATE_PEER,"median of 2 published peer values (L01, L02): median published minimum loan in peer class",2
+L04,Central Bank of India,min_tenure,all,6,ESTIMATE_PEER,median of 1 published peer values (L01): median published minimum tenure in peer class,2
+L04,Central Bank of India,rate_max,all,17.42,ESTIMATE_PEER,rate_min + class spread 7.35 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L04,Central Bank of India,rate_min,all,10.075,ESTIMATE_PEER,"median of 2 published peer values (L01, L02): median published start rate in peer class",2
+L05,Bank of Maharashtra,min_loan_amount,all,100000,ESTIMATE_PEER,"median of 2 published peer values (L01, L02): median published minimum loan in peer class",2
+L05,Bank of Maharashtra,min_tenure,all,6,ESTIMATE_PEER,median of 1 published peer values (L01): median published minimum tenure in peer class,2
+L05,Bank of Maharashtra,rate_max,all,17.42,ESTIMATE_PEER,rate_min + class spread 7.35 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L05,Bank of Maharashtra,rate_min,all,10.075,ESTIMATE_PEER,"median of 2 published peer values (L01, L02): median published start rate in peer class",2
+L06,HDFC Bank,min_loan_amount,all,50000,ESTIMATE_PEER,"median of 2 published peer values (L07, L08): median published minimum loan in peer class",2
+L06,HDFC Bank,processing_fee_max,all,2.0,ESTIMATE_PEER,"no peer publishes this; industry-typical default 2.0: median of published fee caps (SBI 1.5, BoB 2.0, BoM 1.0)",2
+L06,HDFC Bank,rate_max,all,17.34,ESTIMATE_PEER,rate_min + class spread 7.35 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L06,HDFC Bank,rate_min,all,9.99,ESTIMATE_PEER,"median of 2 published peer values (L08, L10): median published start rate in peer class",2
+L07,ICICI Bank,max_tenure,all,66,ESTIMATE_PEER,"median of 4 published peer values (L06, L08, L09, L10): median published max tenure in peer class",2
+L07,ICICI Bank,min_tenure,all,10,ESTIMATE_PEER,"median of 2 published peer values (L06, L10): median published minimum tenure in peer class",2
+L07,ICICI Bank,processing_fee_max,all,2.0,ESTIMATE_PEER,"no peer publishes this; industry-typical default 2.0: median of published fee caps (SBI 1.5, BoB 2.0, BoM 1.0)",2
+L07,ICICI Bank,rate_max,all,17.34,ESTIMATE_PEER,rate_min + class spread 7.35 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L07,ICICI Bank,rate_min,all,9.99,ESTIMATE_PEER,"median of 2 published peer values (L08, L10): median published start rate in peer class",2
+L08,Axis Bank,max_tenure,all,84,OFFICIAL_PARTIAL,,2
+L08,Axis Bank,min_loan_amount,salaried,50000,OFFICIAL_PARTIAL,,2
+L08,Axis Bank,min_tenure,all,10,ESTIMATE_PEER,"median of 2 published peer values (L06, L10): median published minimum tenure in peer class",2
+L08,Axis Bank,processing_fee_max,all,2.0,ESTIMATE_PEER,"no peer publishes this; industry-typical default 2.0: median of published fee caps (SBI 1.5, BoB 2.0, BoM 1.0)",2
+L08,Axis Bank,rate_max,all,17.34,ESTIMATE_PEER,rate_min + class spread 7.35 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L08,Axis Bank,rate_min,all,9.99,OFFICIAL_PARTIAL,,2
+L09,Kotak Mahindra Bank,max_tenure,all,72,OFFICIAL_PARTIAL,,2
+L09,Kotak Mahindra Bank,min_loan_amount,all,50000,ESTIMATE_PEER,"median of 2 published peer values (L07, L08): median published minimum loan in peer class",2
+L09,Kotak Mahindra Bank,min_tenure,all,10,ESTIMATE_PEER,"median of 2 published peer values (L06, L10): median published minimum tenure in peer class",2
+L09,Kotak Mahindra Bank,rate_max,all,17.34,ESTIMATE_PEER,rate_min + class spread 7.35 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L10,IDFC FIRST Bank,max_tenure,standard,60,OFFICIAL_PARTIAL,,2
+L10,IDFC FIRST Bank,min_loan_amount,all,50000,ESTIMATE_PEER,"median of 2 published peer values (L07, L08): median published minimum loan in peer class",2
+L10,IDFC FIRST Bank,min_tenure,standard,9,OFFICIAL_PARTIAL,,2
+L10,IDFC FIRST Bank,rate_max,all,17.34,ESTIMATE_PEER,rate_min + class spread 7.35 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L10,IDFC FIRST Bank,rate_min,standard,9.99,OFFICIAL_PARTIAL,,2
+L11,AU Small Finance Bank,min_loan_amount,all,50000,ESTIMATE_PEER,"median of 4 published peer values (L07, L08, L16, L20): median published minimum loan in peer class",2
+L11,AU Small Finance Bank,rate_min,all,9.995000000000001,ESTIMATE_PEER,"median of 6 published peer values (L08, L10, L16, L17, L18, L20): median published start rate in peer class",2
+L14,ESAF Small Finance Bank,processing_fee_max,all,4.13,ESTIMATE_PEER,"median of 1 published peer values (L16): median of published fee caps (SBI 1.5, BoB 2.0, BoM 1.0)",2
+L14,ESAF Small Finance Bank,rate_max,all,25.0,ESTIMATE_PEER,rate_min + class spread 15.0 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L14,ESAF Small Finance Bank,rate_min,all,9.995000000000001,ESTIMATE_PEER,"median of 6 published peer values (L08, L10, L16, L17, L18, L20): median published start rate in peer class",2
+L16,Bajaj Finance,processing_fee_max,all (incl. taxes),4.13,OFFICIAL_PARTIAL,,2
+L17,Tata Capital,min_loan_amount,all,50000,ESTIMATE_PEER,"median of 4 published peer values (L07, L08, L16, L20): median published minimum loan in peer class",2
+L17,Tata Capital,min_tenure,all,12,ESTIMATE_PEER,"median of 5 published peer values (L06, L10, L16, L18, L20): median published minimum tenure in peer class",2
+L17,Tata Capital,rate_max,all,25.99,ESTIMATE_PEER,rate_min + class spread 15.0 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L18,Poonawalla Fincorp,max_tenure,all,84,OFFICIAL_PARTIAL,,2
+L18,Poonawalla Fincorp,min_loan_amount,all,50000,ESTIMATE_PEER,"median of 4 published peer values (L07, L08, L16, L20): median published minimum loan in peer class",2
+L18,Poonawalla Fincorp,min_tenure,all,12,OFFICIAL_PARTIAL,,2
+L18,Poonawalla Fincorp,processing_fee_max,all,4.13,ESTIMATE_PEER,"median of 1 published peer values (L16): median of published fee caps (SBI 1.5, BoB 2.0, BoM 1.0)",2
+L18,Poonawalla Fincorp,rate_max,all,24.99,ESTIMATE_PEER,rate_min + class spread 15.0 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L19,SMFG India Credit,min_loan_amount,all,50000,ESTIMATE_PEER,"median of 4 published peer values (L07, L08, L16, L20): median published minimum loan in peer class",2
+L19,SMFG India Credit,processing_fee_max,all,4.13,ESTIMATE_PEER,"median of 1 published peer values (L16): median of published fee caps (SBI 1.5, BoB 2.0, BoM 1.0)",2
+L19,SMFG India Credit,rate_max,all,25.0,ESTIMATE_PEER,rate_min + class spread 15.0 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L20,L&T Finance,rate_max,all,26.0,ESTIMATE_PEER,rate_min + class spread 15.0 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L22,Punjab National Bank,min_loan_amount,all,100000,ESTIMATE_PEER,"median of 2 published peer values (L01, L02): median published minimum loan in peer class",2
+L22,Punjab National Bank,min_tenure,all,6,ESTIMATE_PEER,median of 1 published peer values (L01): median published minimum tenure in peer class,2
+L22,Punjab National Bank,processing_fee_max,public/self-employed,1.0,THIRD_PARTY_UNVERIFIED,,2
+L22,Punjab National Bank,rate_max,floating,16.7,THIRD_PARTY_UNVERIFIED,,2
+L22,Punjab National Bank,rate_min,floating,11.15,THIRD_PARTY_UNVERIFIED,,2
+L23,Canara Bank,min_loan_amount,all,100000,ESTIMATE_PEER,"median of 2 published peer values (L01, L02): median published minimum loan in peer class",2
+L23,Canara Bank,min_tenure,all,6,ESTIMATE_PEER,median of 1 published peer values (L01): median published minimum tenure in peer class,2
+L23,Canara Bank,rate_max,all,17.42,ESTIMATE_PEER,rate_min + class spread 7.35 pp (BoB published 10.15-17.50 => 7.35 for banks; Bajaj 10-30.5 => 20.5 upper bound; 15 used for NBFC/SFB as midpoint with HDFC-style tiering),2
+L23,Canara Bank,rate_min,all,10.075,ESTIMATE_PEER,"median of 2 published peer values (L01, L02): median published start rate in peer class",2
+L01,State Bank of India,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L01,State Bank of India,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L02,Bank of Baroda,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L02,Bank of Baroda,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L03,Union Bank of India,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L03,Union Bank of India,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L04,Central Bank of India,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L04,Central Bank of India,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L05,Bank of Maharashtra,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L05,Bank of Maharashtra,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L06,HDFC Bank,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L07,ICICI Bank,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L07,ICICI Bank,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L08,Axis Bank,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L08,Axis Bank,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L09,Kotak Mahindra Bank,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L10,IDFC FIRST Bank,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L10,IDFC FIRST Bank,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L11,AU Small Finance Bank,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L11,AU Small Finance Bank,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L13,Equitas Small Finance Bank,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L13,Equitas Small Finance Bank,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L14,ESAF Small Finance Bank,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L16,Bajaj Finance,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L16,Bajaj Finance,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L17,Tata Capital,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L17,Tata Capital,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L18,Poonawalla Fincorp,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L18,Poonawalla Fincorp,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L19,SMFG India Credit,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L19,SMFG India Credit,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L20,L&T Finance,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L20,L&T Finance,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L22,Punjab National Bank,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L22,Punjab National Bank,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3
+L23,Canara Bank,city_pincode_rule,all,no published hard rule; negative-pincode screen assumed,ESTIMATE_PEER,no lender publishes pincode lists; Bajaj/IDFC/Axis say income floor varies by city -> modelled as +/-5000 on income floor for non-metro,3
+L23,Canara Bank,employer_category_rule,all,any employer; category used for rate/FOIR tiering (CAT-A/B/C),ESTIMATE_PEER,HDFC/ESAF publish named lists; others publish none. Model uses employer tier as soft pricing factor only,3

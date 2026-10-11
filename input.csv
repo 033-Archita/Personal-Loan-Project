@@ -1,0 +1,16 @@
+profile_id,edge_case,age,employment_type,monthly_net_income,monthly_gross_income,existing_monthly_emi,credit_score,current_job_months,total_experience_months,business_vintage_months,requested_amount,requested_tenure_months,employer_category,salary_account_lender,city_type
+P01,Baseline salaried,32,salaried,80000,95000,10000,760,36,72,0,800000,48,private,,metro
+P02,Recently salaried / new job,25,salaried,45000,52000,5000,720,2,18,0,300000,36,private,,urban
+P03,No CIBIL score,29,salaried,65000,76000,8000,,24,48,0,500000,48,mnc,,metro
+P04,Young applicant with high EMI burden,21,salaried,35000,42000,22000,710,12,18,0,250000,36,private,,urban
+P05,Low income with high existing EMI,34,salaried,22000,27000,12000,680,30,96,0,150000,24,private,,semi_urban
+P06,Self-employed with short business vintage,38,self_employed,90000,110000,15000,780,0,120,10,1000000,60,professional,,metro
+P07,Near upper age limit,59,salaried,100000,125000,10000,790,120,360,0,1200000,60,government/PSU,,urban
+P08,Low credit score,31,salaried,70000,82000,8000,620,48,96,0,400000,36,private,,metro
+P09,High income / large loan request,40,salaried,180000,220000,25000,820,72,180,0,5000000,84,mnc,,metro
+P10,Very high EMI leaves little repayment room,42,salaried,60000,74000,40000,740,60,180,0,500000,48,private,,urban
+P11,"Normal accepted: stable salaried, low EMI",30,salaried,90000,108000,5000,790,48,84,0,500000,48,mnc,,metro
+P12,Normal accepted: experienced professional,35,salaried,120000,145000,10000,810,60,120,0,800000,60,private,,metro
+P13,Normal accepted: government employee,40,salaried,85000,103000,8000,780,72,180,0,400000,36,government/PSU,,urban
+P14,Normal accepted: long tenure and low loan request,28,salaried,70000,84000,3000,770,30,54,0,250000,48,private,,urban
+P15,Normal accepted: strong income and credit,33,salaried,150000,180000,12000,830,48,96,0,1000000,60,mnc,,metro
