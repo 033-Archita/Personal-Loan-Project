@@ -16,7 +16,7 @@ A transparent, rule-based screening prototype that compares an applicant profile
 - [Setup and usage](#setup-and-usage)
 - [Sample scenarios and recorded outputs](#sample-scenarios-and-recorded-outputs)
 - [What the sample results show](#what-the-sample-results-show)
-- [Limitations and next steps](#limitations-and-next-steps)
+
 
 ## Problem and scope
 
@@ -283,18 +283,6 @@ These are outputs of the project's current rule data, not independently confirme
 - The no-score case is summarized as `insufficient_profile_data`; its lender rows remain conditional or rejected. This illustrates why the overall summary and lender-level results must be read together.
 - The generated output includes 300 lender-profile evaluations (15 profiles × 20 lenders): 200 `screen_eligible`, 82 `not_eligible`, and 18 `conditional` labels in the saved snapshot. These are counts of model outputs on synthetic profiles, not approval rates or evidence of predictive accuracy.
 - A model scorecard may prefer a lender with a higher estimated rate, while the app's eligible-lender list is sorted by estimated rate. The two views answer different ranking questions and should not be treated as a single optimized financial recommendation.
-
-## Limitations and next steps
-
-1. **Incomplete public information:** lenders retain internal scorecards, fraud controls, affordability calculations, city/employer restrictions, and pricing logic that are not fully public. The dataset cannot reproduce those policies.
-2. **Uneven evidence:** 217 of the current rule rows are peer estimates and 7 are derived estimates. Some are third-party-only, partially supported, unpublished, or not applicable. Estimated thresholds can affect outputs when `include_estimates=True`; the default path treats only `VERIFIED_OFFICIAL` as hard rejection evidence.
-3. **Scheme and segment complexity:** one lender can publish several products or category-specific values. Text-based segment matching is heuristic and can miss exceptions. Conflicts and scheme distinctions require ongoing human review.
-4. **FOIR and affordability approximations:** lenders may define income, deductions, and FOIR differently. The model estimates a principal from simplified amortization assumptions and can use a fallback rate. Do not interpret estimated capacity as an offer.
-5. **Rates:** broad score-band interpolation is an assumption; it does not apply all recorded CIBIL rate bands directly. Fees, fixed/floating structures, insurance, taxes, and changing rate cards may alter the total cost.
-6. **No approval dataset or formal tests:** the 15 synthetic cases exercise the pipeline, but there is no labeled approval/decline dataset, calibration, fairness analysis, or separate automated test suite. Sample results do not measure accuracy.
-7. **User experience and data freshness:** the app browses pre-generated profiles rather than accepting a live profile. Refresh and re-verify source data before use; the stored access dates are in October 2026.
-
-Recommended next work is to add unit tests for segment matching, waterfall boundaries, affordability calculations, and missing data; validate every rule against current lender pages and scheme documents; apply lender-specific score-rate tables where supported; reconcile the ranking shown by the API and UI; and add a validated profile-entry form with clear consent and data handling. Do not present this prototype as an approval engine until it has appropriate data, validation, and review.
 
 ## Conclusion
 
