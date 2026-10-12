@@ -96,6 +96,45 @@ def load_rules(path: str | Path = DEFAULT_RULES) -> dict[str, list[dict[str, str
     return dict(indexed)
 
 
+CALCULATOR_OBSERVATIONS = Path(__file__).with_name("calculator_observations.csv")
+
+
+def load_calculator_multiples(path: str | Path = CALCULATOR_OBSERVATIONS) -> dict[str, dict[str, Any]]:
+    """Derive an ADVISORY multiple of disposable income from public calculator answers.
+
+    Only lenders whose calculator showed a maximum amount for several income/EMI inputs and
+    whose answers imply one consistent multiple (within 1%) are returned. The result is a
+    reference for comparison, never a rule: it is not used for eligibility, capacity or ranking.
+    """
+    points: dict[str, list[tuple[float, float, str, str]]] = defaultdict(list)
+    try:
+        with Path(path).open("r", encoding="utf-8-sig", newline="") as handle:
+            for row in csv.DictReader(handle):
+                income = _number(row.get("input_monthly_net_income_inr"))
+                emi = _number(row.get("input_existing_monthly_emi_inr"))
+                amount = _number(row.get("displayed_maximum_loan_amount_inr"))
+                if income is None or emi is None or amount is None or amount <= 0:
+                    continue
+                disposable = income - emi
+                if disposable <= 0:
+                    continue
+                points[row.get("lender_name", "")].append(
+                    (disposable, amount, row.get("test_id", ""), row.get("calculator_url", "")))
+    except OSError:
+        return {}
+    result: dict[str, dict[str, Any]] = {}
+    for lender, pts in points.items():
+        ratios = [amount / disposable for disposable, amount, _, _ in pts]
+        if len(pts) >= 3 and max(ratios) - min(ratios) <= 0.01 * max(ratios):
+            result[lender] = {
+                "multiple_of_disposable_income": round(sum(ratios) / len(ratios), 2),
+                "observations_used": len(pts),
+                "test_ids": [t for _, _, t, _ in pts],
+                "source_url": pts[0][3],
+            }
+    return result
+
+
 def load_calculator_evidence(path: str | Path = DEFAULT_RULES) -> dict[str, list[dict[str, str]]]:
     """Load calculator observations/findings as evidence only; never as rule rows."""
     evidence: dict[str, list[dict[str, str]]] = defaultdict(list)
@@ -302,6 +341,7 @@ def evaluate(profile: dict[str, Any], rules_path: str | Path = DEFAULT_RULES,
     _validate_profile(profile)
     lenders = load_rules(rules_path)
     calculator_evidence = load_calculator_evidence(rules_path)
+    calculator_multiples = load_calculator_multiples()
     employment = _employment(profile)
     age = _number(profile.get("age"))
     nmi = _number(profile.get("monthly_net_income"))
@@ -456,6 +496,18 @@ def evaluate(profile: dict[str, Any], rules_path: str | Path = DEFAULT_RULES,
             rate_low = rate_high
         lender_score, score_reasons = _score_lender(profile, rows, cap, include_estimates)
         all_calculator_evidence = calculator_evidence.get(lender_id, [])
+        calc_ref = calculator_multiples.get(name)
+        calculator_reference = None
+        if calc_ref is not None:
+            indicative = None
+            if nmi is not None and existing_emi is not None:
+                indicative = round(calc_ref["multiple_of_disposable_income"] * max(0.0, nmi - existing_emi))
+            calculator_reference = {
+                **calc_ref,
+                "indicative_amount": indicative,
+                "status": "advisory_only",
+                "note": "Derived from the lender's public calculator. Not used for eligibility, capacity or ranking.",
+            }
         calculator_examples = (
             [item for item in all_calculator_evidence if item["type"] == "calculator_finding"][:1]
             + [item for item in all_calculator_evidence if item["type"] == "calculator_observation"][:2]
@@ -493,6 +545,7 @@ def evaluate(profile: dict[str, Any], rules_path: str | Path = DEFAULT_RULES,
             "rule_estimates_included_as_constraints": include_estimates,
             "rule_evidence": _rule_evidence(rows, profile),
             "calculator_evidence_count": len(all_calculator_evidence),
+            "calculator_reference": calculator_reference,
             "calculator_evidence_examples": calculator_examples,
         })
 
