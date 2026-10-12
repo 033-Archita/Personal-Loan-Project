@@ -339,3 +339,25 @@ These figures are counts from the saved synthetic scenarios and the current rule
 - The development validation run reported **14 unit tests passed**. The checks cover EMI/principal arithmetic, FOIR and income-multiple calculations, input validation, source-row preservation, evidence separation, legacy CSV compatibility, lender-specific capacity/rate behavior, and conditional/estimated-rule handling.
 
 Together, these results show how evidence classification and explainable rules can make a lender comparison reviewable: a result is accompanied by its matching criteria, calculated caps, rate assumptions, and source trail rather than a single opaque score.
+### Calculator evidence
+
+Calculator findings are advisory only. Of the 20 lenders, only Kotak Mahindra Bank and IDFC FIRST Bank had a public calculator whose maximum-amount answers fit one consistent multiple of disposable income (about 20× and 10×, across 7 observations each). The model returns this as `calculator_reference` with an indicative amount. It is never used for eligibility, capacity, ranking or the best option. The other calculators were EMI-only, blank or inconclusive, so they are kept as evidence and not used for sizing.
+
+## Limits of the model
+
+- **No approval data.** `screen_eligible` means a profile passes the verified rules in the dataset. It does not mean a lender will approve it.
+- **Many rules are estimates.** 217 of 486 rule rows are peer estimates. By default they do not cause rejections, so many lender results come back `conditional` instead of a firm yes or no. `include_estimates=True` applies them as constraints.
+- **Rates are interpolated.** The expected rate is placed within each lender's published range using common score bands (800+, 750–799, and so on). Lenders do not publish this mapping, and the scorecard weights are my own judgement.
+- **Not modelled:** missed payments (DPD), recent credit enquiries, write-offs and settled loans, employer-specific pricing, processing fees and GST in the ranking, and city-based income floors.
+- **Lender set is biased toward transparent lenders.** The final cut favoured lenders that publish more rules, so the insights describe these 20 lenders, not the whole market.
+- **Test profiles are synthetic.** The 15 profiles show how the rules behave. They say nothing about real approval rates.
+- **Rules change.** Every value carries the date it was read (2026-10-11 and 2026-10-12).
+
+## What I would add next
+
+1. Add bureau inputs: missed payments, enquiries and write-off flags.
+2. Rank by APR or total cost including fees and GST, not by rate alone, and use one definition of "best option".
+3. Turn more calculator findings into sizing rules as more lenders expose usable calculators.
+4. Add a breakdown of which rule rejects the most applicants, and a what-if view, for example how many lenders open up with +50 score points.
+5. Replace peer estimates with official values wherever a source can be found.
+6. Add a unit-test file to the repo.
