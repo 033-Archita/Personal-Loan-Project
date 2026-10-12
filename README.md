@@ -1,4 +1,4 @@
-# Personal Loan Eligibility Model — India
+# Personal Loan Eligibility Model
 
 A Python-based personal-loan comparison project built from public lender information. It brings research, evidence-labeled rules, repayment calculations, a deterministic eligibility waterfall, and a Streamlit results view into one reproducible workflow across 20 Indian lenders.
 
@@ -27,16 +27,40 @@ The scope is personal loans in India. Profiles used for the included scenarios a
 
 ## Lender selection
 
-The 20-lender set was selected to represent major provider types and a useful range of public personal-loan information. It is a coverage-based comparison set, not a market-share ranking.
+The 20 lenders were chosen in two stages. The first stage asked which lenders matter in the personal-loan market. The second asked which of them can be modelled honestly from public sources. The result is a coverage-based comparison set, not a market-share ranking.
 
-| Institution type | Lenders |
-| --- | --- |
+### Stage 1: shortlist of 30 candidates
+
+Candidates were drawn from four institution types: public-sector banks, private banks, small finance banks, and NBFC or fintech-linked lenders. A lender entered the shortlist only if it met both conditions:
+
+- **Market presence:** it is an established, widely available provider of retail lending in India, so a typical applicant could realistically approach it.
+- **Product availability:** it offers an unsecured personal loan to individuals and describes that product publicly. A lender with only a lead-capture form and no published criteria did not qualify.
+
+### Stage 2: cut to 20 by verifiable rules
+
+Each shortlisted lender was then researched using official product pages, FAQs, scheme documents, rate tables, and public calculators. Candidates were ranked by how many eligibility, amount, rate, and tenure rules could be confirmed from official public sources (`VERIFIED_OFFICIAL` rows). Lenders with few verifiable rules were dropped in favour of lenders with more. This keeps the model from resting mostly on estimates.
+
+The same test settled the close calls. For example, among SMFG India Credit, L&T Finance, and Piramal Finance, the two with the most verified rules were kept. Candidates that were shortlisted but not retained include Ujjivan Small Finance Bank, Suryoday Small Finance Bank, Piramal Finance, Aditya Birla Capital, and Moneyview.
+
+### Final set and the type split
+
+| Institution type        | Lenders                                                                                                                                 |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | Public-sector banks (7) | State Bank of India, Bank of Baroda, Union Bank of India, Central Bank of India, Bank of Maharashtra, Punjab National Bank, Canara Bank |
-| Private banks (5) | HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, IDFC FIRST Bank |
-| Small finance banks (3) | AU Small Finance Bank, Equitas Small Finance Bank, ESAF Small Finance Bank |
-| NBFCs (5) | Bajaj Finance, Tata Capital, Poonawalla Fincorp, SMFG India Credit, L&T Finance |
+| Private banks (5)       | HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, IDFC FIRST Bank                                                                  |
+| Small finance banks (3) | AU Small Finance Bank, Equitas Small Finance Bank, ESAF Small Finance Bank                                                              |
+| NBFCs (5)               | Bajaj Finance, Tata Capital, Poonawalla Fincorp, SMFG India Credit, L&T Finance                                                         |
 
-Lenders are represented as the bank or NBFC that offers the loan. The range supports comparison of published criteria across public-sector, private, small-finance, and non-bank institutions.
+The split is not an equal quota. The plan started at five lenders per type, and the second-stage cut moved the counts:
+
+- **Public-sector banks (7):** these publish the most detailed and standardized scheme documents, with explicit age, income, FOIR, and income-multiple rules and published rate tables. More of them cleared the verifiable-rule cut, so they hold the most slots.
+- **Private banks (5):** major retail personal-loan providers with dedicated eligibility pages and calculators.
+- **Small finance banks (3):** fewer of them publish personal-loan criteria in enough detail, so only three cleared the cut.
+- **NBFCs (5):** the leading non-bank personal-loan lenders. Their rules are less fully published, so calculator probing carries more weight for them.
+
+### Effect on the results
+
+Because the cut favours lenders with more published rules, the set leans toward transparent lenders. Lenders that publish little are under-represented, and they may behave differently from the ones modelled here. Insights from this project describe the 20 lenders in the set and should not be read as statements about the whole market.
 
 ## Research method and source verification
 
@@ -52,16 +76,16 @@ Each rule row can retain its source URL, publisher and source type, access date,
 - [PNB personal-loan scheme](https://pnb.bank.in/personalloanforpublic.html)
 - [PNB interest-rate table](https://www.pnb.bank.in/interst-rate-on-advances-linked-to-mclr.html)
 
-Evidence classifications keep source strength visible instead of collapsing every datapoint into a single “rule” field:
+Evidence classifications keep source strength visible instead of collapsing every datapoint into a single "rule" field:
 
-| Status | Interpretation in the project |
-| --- | --- |
-| `VERIFIED_OFFICIAL` | Numeric or textual value recorded as supported by an official lender source; eligible for default hard-rule enforcement. |
-| `OFFICIAL_PARTIAL` | Official material supports part of the rule or provides incomplete detail. |
-| `ESTIMATE_PEER`, `ESTIMATE_DERIVED` | Peer-based or derived estimate, retained with its method and context. |
-| `THIRD_PARTY_UNVERIFIED` | Public third-party information without an official lender confirmation in the dataset. |
-| `CONFLICT_RESOLVED` | Conflicting evidence preserved with a recorded resolution. |
-| `NOT_PUBLISHED`, `NOT_APPLICABLE` | Explicit dataset markers for a value not located in the reviewed public materials or a rule that does not apply to the segment. |
+| Status                              | Interpretation in the project                                                                                                   |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `VERIFIED_OFFICIAL`                 | Numeric or textual value recorded as supported by an official lender source; eligible for default hard-rule enforcement.        |
+| `OFFICIAL_PARTIAL`                  | Official material supports part of the rule or provides incomplete detail.                                                      |
+| `ESTIMATE_PEER`, `ESTIMATE_DERIVED` | Peer-based or derived estimate, retained with its method and context.                                                           |
+| `THIRD_PARTY_UNVERIFIED`            | Public third-party information without an official lender confirmation in the dataset.                                          |
+| `CONFLICT_RESOLVED`                 | Conflicting evidence preserved with a recorded resolution.                                                                      |
+| `NOT_PUBLISHED`, `NOT_APPLICABLE`   | Explicit dataset markers for a value not located in the reviewed public materials or a rule that does not apply to the segment. |
 
 ## Repository architecture
 
@@ -84,20 +108,20 @@ flowchart LR
     L --> M[app.py<br/>Streamlit comparison]
 ```
 
-| File | Role |
-| --- | --- |
-| `lender_rules.csv` | Original lender-rule research table with source fields and evidence status. |
-| `calculator_observations.csv` | Scenario-level input/output records from public lender calculators. |
-| `calculator_rule_findings.csv` | Summarized calculator findings, evidence labels, and suggested model handling. |
-| `csv_clean_and_format.py` | Validates source schemas, reconciles lender IDs, preserves every input record, and writes the standardized matrix and validation report. |
-| `lender_rule_matrix.csv` | Unified long-format dataset used by the model. `record_type` distinguishes rules, calculator observations, and calculator findings. |
-| `csv_validation_report.json` | Row reconciliation, source-file hashes, and data-quality validation results. |
-| `calculator.py` | Reusable, lender-agnostic EMI, principal, FOIR, income-multiple, loan-limit, and scenario calculations. |
-| `model.py` | Segment matching, eligibility waterfall, amount and rate estimates, scorecard, lender ranking, and evidence output. |
-| `data.py` | Defines 15 synthetic profiles and writes `input.csv` plus model assessments in `test_outputs.csv`. |
-| `input.csv` | Generated applicant scenario inputs. |
-| `test_outputs.csv` | Saved overall and lender-level model results for the sample profiles. |
-| `app.py` | Streamlit view of a selected saved profile and its lender options. |
+| File                           | Role                                                                                                                                     |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `lender_rules.csv`             | Original lender-rule research table with source fields and evidence status.                                                              |
+| `calculator_observations.csv`  | Scenario-level input/output records from public lender calculators.                                                                      |
+| `calculator_rule_findings.csv` | Summarized calculator findings, evidence labels, and suggested model handling.                                                           |
+| `csv_clean_and_format.py`      | Validates source schemas, reconciles lender IDs, preserves every input record, and writes the standardized matrix and validation report. |
+| `lender_rule_matrix.csv`       | Unified long-format dataset used by the model. `record_type` distinguishes rules, calculator observations, and calculator findings.      |
+| `csv_validation_report.json`   | Row reconciliation, source-file hashes, and data-quality validation results.                                                             |
+| `calculator.py`                | Reusable, lender-agnostic EMI, principal, FOIR, income-multiple, loan-limit, and scenario calculations.                                  |
+| `model.py`                     | Segment matching, eligibility waterfall, amount and rate estimates, scorecard, lender ranking, and evidence output.                      |
+| `data.py`                      | Defines 15 synthetic profiles and writes `input.csv` plus model assessments in `test_outputs.csv`.                                       |
+| `input.csv`                    | Generated applicant scenario inputs.                                                                                                     |
+| `test_outputs.csv`             | Saved overall and lender-level model results for the sample profiles.                                                                    |
+| `app.py`                       | Streamlit view of a selected saved profile and its lender options.                                                                       |
 
 The cleaner's current validation report records all **593** source records in the matrix (486 lender rules, 86 calculator observations, and 21 calculator findings), unchanged input-source hashes, 20 mapped lender IDs, and no reported duplicate rule IDs, invalid rule numbers, invalid dates, or inconsistent minimum/maximum pairs. Empty source values remain empty rather than being interpreted as zero.
 
@@ -105,22 +129,22 @@ The cleaner's current validation report records all **593** source records in th
 
 `model.evaluate(profile)` accepts a Python dictionary with the following fields. In the sample data, these are synthetic scenario values; a real application would obtain the profile from applicant input and supporting documents. A credit score would come from a bureau report with the applicant's authorization.
 
-| Variable | Type and unit | Purpose | Real-world source |
-| --- | --- | --- | --- |
-| `age` | Number, years | Application-age and maturity-age checks. | Applicant; KYC document |
-| `employment_type` | Category: `salaried` or `self_employed` | Chooses employment-specific rules. | Applicant; employment or business records |
-| `monthly_net_income` | Number, INR/month | Income floors, FOIR where net basis applies, and scorecard. | Applicant; payslip, bank statement, or income records |
-| `monthly_gross_income` | Number, INR/month | FOIR or multiple basis when the applicable source specifies gross income. | Applicant; payslip or income records |
-| `existing_monthly_emi` | Number, INR/month | Current debt obligations for FOIR capacity and debt scoring. | Applicant; bureau report and statements |
-| `credit_score` | Number or blank, bureau points | Score-floor check and indicative rate tier. | Credit bureau report, with authorization |
-| `current_job_months` | Number, months | Current-job tenure check and stability score. | Applicant; employer records |
-| `total_experience_months` | Number, months | Total work-experience check and stability score. | Applicant; employment history |
-| `business_vintage_months` | Number, months | Business tenure for self-employed scenarios. | Applicant; business/tax records |
-| `requested_amount` | Number, INR | Product-limit check and amount-fit score. | Applicant |
-| `requested_tenure_months` | Integer, months | Product tenure check and affordability calculation. | Applicant |
-| `employer_category` | Text category | Employer segment matching, where represented in lender rules. | Applicant; employer documentation |
-| `salary_account_lender` | Text | Salary-account segment matching, where represented. | Applicant; bank statement |
-| `city_type` | Text category | Location-segment matching, where represented. | Applicant; address/KYC record |
+| Variable                  | Type and unit                           | Purpose                                                                   | Real-world source                                     |
+| ------------------------- | --------------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `age`                     | Number, years                           | Application-age and maturity-age checks.                                  | Applicant; KYC document                               |
+| `employment_type`         | Category: `salaried` or `self_employed` | Chooses employment-specific rules.                                        | Applicant; employment or business records             |
+| `monthly_net_income`      | Number, INR/month                       | Income floors, FOIR where net basis applies, and scorecard.               | Applicant; payslip, bank statement, or income records |
+| `monthly_gross_income`    | Number, INR/month                       | FOIR or multiple basis when the applicable source specifies gross income. | Applicant; payslip or income records                  |
+| `existing_monthly_emi`    | Number, INR/month                       | Current debt obligations for FOIR capacity and debt scoring.              | Applicant; bureau report and statements               |
+| `credit_score`            | Number or blank, bureau points          | Score-floor check and indicative rate tier.                               | Credit bureau report, with authorization              |
+| `current_job_months`      | Number, months                          | Current-job tenure check and stability score.                             | Applicant; employer records                           |
+| `total_experience_months` | Number, months                          | Total work-experience check and stability score.                          | Applicant; employment history                         |
+| `business_vintage_months` | Number, months                          | Business tenure for self-employed scenarios.                              | Applicant; business/tax records                       |
+| `requested_amount`        | Number, INR                             | Product-limit check and amount-fit score.                                 | Applicant                                             |
+| `requested_tenure_months` | Integer, months                         | Product tenure check and affordability calculation.                       | Applicant                                             |
+| `employer_category`       | Text category                           | Employer segment matching, where represented in lender rules.             | Applicant; employer documentation                     |
+| `salary_account_lender`   | Text                                    | Salary-account segment matching, where represented.                       | Applicant; bank statement                             |
+| `city_type`               | Text category                           | Location-segment matching, where represented.                             | Applicant; address/KYC record                         |
 
 `profile_id` and `edge_case` in `input.csv` identify and describe the sample scenarios; they are not lender-rule inputs. The model validates supplied numeric values and carries omitted information into conditional results where it is needed for a rule check.
 
@@ -132,16 +156,16 @@ The standardized matrix includes record type, source file and row, lender identi
 
 The current 486 lender-rule rows have these recorded statuses:
 
-| Evidence status | Rows |
-| --- | ---: |
-| `VERIFIED_OFFICIAL` | 210 |
-| `OFFICIAL_PARTIAL` | 34 |
-| `ESTIMATE_PEER` | 217 |
-| `ESTIMATE_DERIVED` | 7 |
-| `THIRD_PARTY_UNVERIFIED` | 6 |
-| `CONFLICT_RESOLVED` | 1 |
-| `NOT_PUBLISHED` | 3 |
-| `NOT_APPLICABLE` | 8 |
+| Evidence status          | Rows |
+| ------------------------ | ---- |
+| `VERIFIED_OFFICIAL`      | 210  |
+| `OFFICIAL_PARTIAL`       | 34   |
+| `ESTIMATE_PEER`          | 217  |
+| `ESTIMATE_DERIVED`       | 7    |
+| `THIRD_PARTY_UNVERIFIED` | 6    |
+| `CONFLICT_RESOLVED`      | 1    |
+| `NOT_PUBLISHED`          | 3    |
+| `NOT_APPLICABLE`         | 8    |
 
 By default, `VERIFIED_OFFICIAL` values can create hard eligibility rejections. Official partial, estimated, and third-party values remain visible in evidence and may inform clearly marked capacity or pricing estimates. Where an uncertain rule conflicts with an applicant value, the model can return `conditional`. `evaluate(profile, include_estimates=True)` opts supported partial and estimated records into hard enforcement while retaining their original evidence status.
 
@@ -153,13 +177,13 @@ By default, `VERIFIED_OFFICIAL` values can create hard eligibility rejections. O
 
 For principal `P`, annual interest rate `R` expressed as a percentage, and term `n` months, the monthly periodic rate is `r = R / 1200`. For a positive rate:
 
-```text
+```
 EMI = P × r × (1 + r)^n / ((1 + r)^n − 1)
 ```
 
 At zero interest:
 
-```text
+```
 EMI = P / n
 ```
 
@@ -167,7 +191,7 @@ EMI = P / n
 
 For monthly payment `E`, periodic rate `r`, and term `n`:
 
-```text
+```
 P = E × (1 − (1 + r)^(-n)) / r       when r > 0
 P = E × n                             when r = 0
 ```
@@ -176,7 +200,7 @@ P = E × n                             when r = 0
 
 For income basis `I`, maximum FOIR `F` in percentage points, and existing monthly EMI `X`, available EMI capacity is:
 
-```text
+```
 E_available = max(0, I × F / 100 − X)
 ```
 
@@ -186,7 +210,7 @@ The model converts this payment capacity to a principal using the available lend
 
 When a lender rule supplies an income multiple `M`:
 
-```text
+```
 P_multiple = applicable monthly income basis × M
 ```
 
@@ -196,17 +220,17 @@ The model compares available product maximum, income-multiple cap, and FOIR-deri
 
 When credit score and a rate range are available, the model maps the score band to a fraction `q` of the recorded range:
 
-```text
+```
 estimated_rate = rate_min + (rate_max − rate_min) × q
 ```
 
-| Score band | `q` |
-| --- | ---: |
-| 800+ | 0.10 |
-| 750–799 | 0.25 |
-| 700–749 | 0.55 |
-| 650–699 | 0.85 |
-| Below 650 | 1.00 |
+| Score band | `q`  |
+| ---------- | ---- |
+| 800+       | 0.10 |
+| 750–799    | 0.25 |
+| 700–749    | 0.55 |
+| 650–699    | 0.85 |
+| Below 650  | 1.00 |
 
 This is a transparent project estimate within the available rate range. Where a lender-specific CIBIL rate-band table exists, it remains in the evidence matrix; the current interpolation uses the common project score bands.
 
@@ -227,13 +251,13 @@ The lender-level waterfall follows these stages:
 
 The model labels lender outcomes as `screen_eligible`, `conditional`, or `not_eligible`. Its 100-point scorecard ranks profiles across five transparent dimensions:
 
-| Component | Model scoring |
-| --- | --- |
-| Credit score (30 points) | 30 at 800+, 26 at 750–799, 19 at 700–749, 10 at 650–699, otherwise 0. |
-| Income headroom (25 points) | 25 at 2× income floor, 20 at 1.5×, 14 at the floor, otherwise 0; uses ₹25,000/month when no floor is recorded. |
-| Employment stability (20 points) | 20 for job ≥36 months and experience ≥60; 16 for job ≥12 and experience ≥24; 10 for job ≥6; otherwise 0. |
-| Existing debt burden (15 points) | 15 at existing EMI/net income ≤10%, 12 at ≤25%, 8 at ≤40%, otherwise 0. |
-| Requested amount fit (10 points) | 10 when calculated capacity is known and covers the requested amount. |
+| Component                        | Model scoring                                                                                                  |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Credit score (30 points)         | 30 at 800+, 26 at 750–799, 19 at 700–749, 10 at 650–699, otherwise 0.                                          |
+| Income headroom (25 points)      | 25 at 2× income floor, 20 at 1.5×, 14 at the floor, otherwise 0; uses ₹25,000/month when no floor is recorded. |
+| Employment stability (20 points) | 20 for job ≥36 months and experience ≥60; 16 for job ≥12 and experience ≥24; 10 for job ≥6; otherwise 0.       |
+| Existing debt burden (15 points) | 15 at existing EMI/net income ≤10%, 12 at ≤25%, 8 at ≤40%, otherwise 0.                                        |
+| Requested amount fit (10 points) | 10 when calculated capacity is known and covers the requested amount.                                          |
 
 The model API's `best_option` prioritizes screen-eligible lenders, then score and estimated rate; conditional options follow. In `app.py`, the displayed top match is the screen-eligible option with the lowest estimated rate, with a conditional option shown when no screen-eligible option is present. This makes the API ranking and the app's price-first comparison intentionally interpretable as different views of the same lender results.
 
@@ -241,20 +265,20 @@ The model API's `best_option` prioritizes screen-eligible lenders, then score an
 
 Run commands from the folder containing `app.py` and `model.py`. Python 3.10 or later is recommended. Install the app dependencies:
 
-```bash
+```
 python -m pip install streamlit pandas
 ```
 
 Regenerate the standardized lender matrix and validation report from the three research CSVs, then generate the sample profiles and saved assessments:
 
-```bash
+```
 python csv_clean_and_format.py
 python data.py
 ```
 
 Run the Streamlit app:
 
-```bash
+```
 python -m streamlit run app.py
 ```
 
@@ -295,14 +319,14 @@ For command-line use, save a profile with the same keys in JSON and run `python 
 
 The current saved outputs cover **300 lender-profile assessments** (15 profiles × 20 lender rows):
 
-| Result level | Recorded outcome | Count |
-| --- | --- | ---: |
-| Profile summary | `eligible_for_at_least_one_lender` | 11 |
-| Profile summary | `conditional_or_no_match` | 3 |
-| Profile summary | `insufficient_profile_data` | 1 |
-| Lender assessment | `screen_eligible` | 109 |
-| Lender assessment | `conditional` | 102 |
-| Lender assessment | `not_eligible` | 89 |
+| Result level      | Recorded outcome                   | Count |
+| ----------------- | ---------------------------------- | ----- |
+| Profile summary   | `eligible_for_at_least_one_lender` | 11    |
+| Profile summary   | `conditional_or_no_match`          | 3     |
+| Profile summary   | `insufficient_profile_data`        | 1     |
+| Lender assessment | `screen_eligible`                  | 109   |
+| Lender assessment | `conditional`                      | 102   |
+| Lender assessment | `not_eligible`                     | 89    |
 
 These figures are counts from the saved synthetic scenarios and the current rule matrix. They demonstrate how the waterfall behaves across varied profiles; they are not a measure of real-world approvals.
 
